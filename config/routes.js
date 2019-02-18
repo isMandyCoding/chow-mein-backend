@@ -12,7 +12,7 @@ module.exports = function (app) {
 
     app.get('/orders', orders.index)
     app.get('/orders/:id', orders.show)
-
+    app.post('/orders', orders.create)
 
 
 }

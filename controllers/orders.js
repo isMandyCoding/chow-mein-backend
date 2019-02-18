@@ -73,6 +73,7 @@ module.exports = {
                 "orders.customer_email",
                 "statuses.status",
                 "order_items.id as item_id",
+                "menu.id as menu_id",
                 "menu.eng_name",
                 "menu.ch_name",
                 "menu.priceInCents"
@@ -88,6 +89,7 @@ module.exports = {
                             {
                                 ...acc[currentOrder.order_id],
                                 items: acc[currentOrder.order_id].items.concat({
+                                    menu_id: currentOrder.menu_id,
                                     item_id: currentOrder.item_id,
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
@@ -103,6 +105,7 @@ module.exports = {
                                 customer_email: currentOrder.customer_email,
                                 status: currentOrder.status,
                                 items: [{
+                                    menu_id: currentOrder.menu_id,
                                     item_id: currentOrder.item_id,
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
@@ -116,6 +119,34 @@ module.exports = {
                 res.send(structuredResult)
             })
             .catch(err => res.send(err))
+    },
+    create: (req, res) => {
+        knex("orders")
+            .insert({
+                customer_name: req.body.customer_name,
+                customer_email: req.body.customer_email,
+                customer_id: req.body.customer_id || null,
+                for_time: req.body.for_time,
+                from_guest: req.body.from_guest,
+                status_id: 1
+            })
+            .returning("id")
+            .then(result => {
+                console.log(result)
+                let orderItems = req.body.items.map(item => {
+                    return {
+                        menu_id: item,
+                        order_id: result[0]
+                    }
+                })
+                knex("order_items")
+                    .insert(orderItems)
+                    .then(result => {
+                        res.send("order placed successfully")
+                    })
+                    .catch(err => res.send(err))
+            })
+            .catch(err => console.log(err))
     }
 }
 
