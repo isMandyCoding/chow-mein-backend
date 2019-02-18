@@ -89,5 +89,16 @@ module.exports = {
                 res.send(result)
             })
             .catch(err => console.log(err))
+    },
+    create: (req, res) => {
+        knex('menu')
+            .insert({
+                ...req.body
+            })
+            .returning("*")
+            .then(result => {
+                res.send(result)
+            })
+            .catch(err => console.log(err))
     }
 }
