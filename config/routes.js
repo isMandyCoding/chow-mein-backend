@@ -11,6 +11,7 @@ module.exports = function (app) {
     app.delete('/menu/:id', menu.destroy)
 
     app.get('/orders', orders.index)
+    app.get('/orders/:id', orders.show)
 
 
 
