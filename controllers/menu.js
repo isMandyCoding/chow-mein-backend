@@ -23,7 +23,6 @@ module.exports = {
             .join('menu_sections', 'menu_sections.id', 'categories.section_id')
             .then(results => {
                 let structuredMenu = results.reduce((acc, currentItem) => {
-                    // console.log(!acc.categories.find(x => x.category_id === currentItem.category_id))
                     acc = {
                         ...acc,
                         sections: !acc.sections.find(item => item.section_id === currentItem.section_id) ?
@@ -96,6 +95,28 @@ module.exports = {
                 ...req.body
             })
             .returning("*")
+            .then(result => {
+                res.send(result)
+            })
+            .catch(err => console.log(err))
+    },
+    update: (req, res) => {
+        knex("menu")
+            .where('menu.id', req.params.id)
+            .update({
+                ...req.body
+            })
+            .returning('*')
+            .then(result => {
+                res.send(result)
+            })
+            .catch(err => console.log(err))
+    },
+    destroy: (req, res) => {
+        knex("menu")
+            .where('menu.id', req.params.id)
+            .del()
+            .returning('*')
             .then(result => {
                 res.send(result)
             })

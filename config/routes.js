@@ -1,9 +1,17 @@
 
-const menu = require("../controllers/menu.js")
+const menu = require("../controllers/menu.js");
+const orders = require("../controllers/orders.js")
+
 module.exports = function (app) {
 
     app.get('/menu', menu.index);
     app.get('/menu/:id', menu.show)
     app.post('/menu', menu.create)
+    app.patch('/menu/:id', menu.update)
+    app.delete('/menu/:id', menu.destroy)
+
+    app.get('/orders', orders.index)
+
+
 
 }
