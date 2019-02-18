@@ -55,7 +55,6 @@ module.exports = {
                             acc.menu_items
 
                     }
-
                     return acc
                 }, {
                         sections: [],
@@ -66,4 +65,29 @@ module.exports = {
             })
             .catch(err => console.log(err))
     },
+    show: (req, res) => {
+        knex("menu")
+            .where('menu.id', req.params.id)
+            .select(
+                'menu.id as menu_id',
+                'menu.eng_name',
+                'menu.ch_name',
+                'menu.description',
+                'menu.priceInCents',
+                'menu.img_url',
+                'menu.is_spicy as isSpicy',
+                'menu_sections.id as section_id',
+                'menu_sections.eng_section',
+                'menu_sections.ch_section',
+                'categories.id as category_id',
+                'categories.eng_category',
+                'categories.ch_category'
+            )
+            .join('categories', 'categories.id', 'menu.category_id')
+            .join('menu_sections', 'menu_sections.id', 'categories.section_id')
+            .then(result => {
+                res.send(result)
+            })
+            .catch(err => console.log(err))
+    }
 }
