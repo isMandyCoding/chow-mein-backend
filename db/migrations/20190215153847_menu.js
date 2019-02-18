@@ -6,6 +6,7 @@ exports.up = function (knex, Promise) {
         table.text("description");
         table.integer("priceInCents");
         table.text("img_url");
+        table.boolean("is_spicy")
         table.integer('category_id')
             .notNullable()
             .references('id')

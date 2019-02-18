@@ -10,7 +10,7 @@ exports.up = function (knex, Promise) {
         table.integer('menu_id')
             .notNullable()
             .references('id')
-            .inTable('menus')
+            .inTable('menu')
             .onDelete('CASCADE')
             .index();
         table.timestamps(true, true);

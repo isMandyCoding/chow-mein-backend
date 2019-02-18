@@ -6,7 +6,6 @@ exports.up = function (knex, Promise) {
         table.boolean('from_guest')
             .defaultsTo('false')
         table.integer('customer_id')
-            .notNullable()
             .references('id')
             .inTable('customers')
             .onDelete('CASCADE')
