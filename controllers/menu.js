@@ -1,0 +1,69 @@
+const knex = require("../db/knex.js");
+
+module.exports = {
+    // CHANGE ME TO AN ACTUAL FUNCTION
+    index: function (req, res) {
+        knex("menu")
+            .select(
+                'menu.id as menu_id',
+                'menu.eng_name',
+                'menu.ch_name',
+                'menu.description',
+                'menu.priceInCents',
+                'menu.img_url',
+                'menu.is_spicy as isSpicy',
+                'menu_sections.id as section_id',
+                'menu_sections.eng_section',
+                'menu_sections.ch_section',
+                'categories.id as category_id',
+                'categories.eng_category',
+                'categories.ch_category'
+            )
+            .join('categories', 'categories.id', 'menu.category_id')
+            .join('menu_sections', 'menu_sections.id', 'categories.section_id')
+            .then(results => {
+                let structuredMenu = results.reduce((acc, currentItem) => {
+                    // console.log(!acc.categories.find(x => x.category_id === currentItem.category_id))
+                    acc = {
+                        ...acc,
+                        sections: !acc.sections.find(item => item.section_id === currentItem.section_id) ?
+                            acc.sections.concat({
+                                section_id: currentItem.section_id,
+                                eng_section: currentItem.eng_section,
+                                ch_section: currentItem.ch_section
+                            }) :
+                            acc.sections,
+                        categories: !acc.categories.find(item => item.category_id === currentItem.category_id) ?
+                            acc.categories.concat({
+                                category_id: currentItem.category_id,
+                                eng_category: currentItem.eng_category,
+                                ch_category: currentItem.ch_category
+                            }) :
+                            acc.categories,
+                        menu_items: !acc.menu_items.find(item => item.menu_id === currentItem.menu_id) ?
+                            acc.menu_items.concat({
+                                menu_id: currentItem.menu_id,
+                                category_id: currentItem.category_id,
+                                section_id: currentItem.section_id,
+                                eng_name: currentItem.eng_name,
+                                ch_name: currentItem.ch_name,
+                                description: currentItem.description,
+                                priceInCents: currentItem.priceInCents,
+                                img_url: currentItem.img_url,
+                                isSpicy: currentItem.isSpicy
+                            }) :
+                            acc.menu_items
+
+                    }
+
+                    return acc
+                }, {
+                        sections: [],
+                        categories: [],
+                        menu_items: []
+                    })
+                res.send(structuredMenu)
+            })
+            .catch(err => console.log(err))
+    },
+}
