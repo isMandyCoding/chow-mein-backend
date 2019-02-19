@@ -331,3 +331,93 @@ Example server response body:
     }
 }
 ```
+
+## GET request to http://127.0.0.1:8000/orders/:order_id
+Retrieves a single order by id
+Example server response body: 
+```javascript
+{
+    "21": {
+        "order_id": 21,
+        "customer_name": "Barack Obama",
+        "for_time": "ASAP",
+        "fromGuest": true,
+        "customer_id": null,
+        "customer_email": "whitehouse@email.com",
+        "status": "received",
+        "items": [
+            {
+                "menu_id": 34,
+                "item_id": 58,
+                "eng_name": "Hong Kong Style Ground Beef Congee",
+                "ch_name": "港式牛肉粥",
+                "priceInCents": 650
+            },
+            {
+                "menu_id": 44,
+                "item_id": 59,
+                "eng_name": "XO Sauce with Soft Tofu",
+                "ch_name": "XO醬豆腐(辣)",
+                "priceInCents": 850
+            },
+            {
+                "menu_id": 46,
+                "item_id": 56,
+                "eng_name": "Tofu with Salted Shrimp & Shredded Pork",
+                "ch_name": "咸蝦肉絲豆腐",
+                "priceInCents": 850
+            },
+            {
+                "menu_id": 100,
+                "item_id": 57,
+                "eng_name": "Hong Kong Style Beef Loin",
+                "ch_name": "中式牛",
+                "priceInCents": 950
+            }
+        ]
+    }
+}
+```
+
+## POST request to http://127.0.0.1:8000/orders
+A request to this route will post an order. The request body must look like this: 
+```javascript
+{
+	"customer_name": "Barack Obama",
+	"customer_email": "whitehouse@email.com",
+	"for_time": "ASAP",
+	"from_guest": true,
+	"items": [46, 100, 34, 44]
+}
+```
+
+A customer_id field may be supplied if the user not ordering as a guest. In this case, the from_guest field will need to be sent as false. 
+
+The items field must be an array of menu_id's. 
+
+Example server response body: 
+```javascript
+order placed successfully
+```
+
+## PATCH request to http://127.0.0.1:8000/orders/:order_id
+A request to this route will update the order, as well as update the order items if they have been changed
+
+The request body can contain any fields that a POST request to this same path would contain. 
+
+Example server response body: 
+```javascript
+order updated successfully
+```
+
+DELETE request to http://127.0.0.1:8000/orders/:order_id
+A request to this route will delete the specified order
+
+Example server response body (the server returns the id of the deleted order): 
+```javascript
+[
+    15
+]
+```
+
+
