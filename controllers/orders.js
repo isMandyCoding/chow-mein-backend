@@ -147,6 +147,51 @@ module.exports = {
                     .catch(err => res.send(err))
             })
             .catch(err => console.log(err))
+    },
+    update: (req, res) => {
+        knex("orders")
+            .where("orders.id", req.params.id)
+            .update({
+                customer_name: req.body.customer_name,
+                customer_email: req.body.customer_email,
+                customer_id: req.body.customer_id || null,
+                for_time: req.body.for_time,
+                from_guest: req.body.from_guest,
+            })
+            .returning('id')
+            .then(result => {
+                let orderID = result[0]
+                knex("order_items")
+                    .where("order_items.order_id", result[0])
+                    .then(result => {
+                        if (!(result.filter((item, index) => item.menu_id === req.body.items[index]).length === req.body.items.length)) {
+                            knex("order_items")
+                                .where("order_items.order_id", orderID)
+                                .del()
+                                .then(() => {
+                                    let orderItems = req.body.items.map(item => {
+                                        return {
+                                            menu_id: item,
+                                            order_id: orderID
+                                        }
+                                    })
+                                    knex("order_items")
+                                        .insert(orderItems)
+                                        .then(() => {
+                                            res.send("order updated successfully")
+                                        })
+                                        .catch(err => console.log(err))
+                                })
+
+                                .catch(err => console.log(err))
+
+                        } else {
+                            res.send("order updated successfully, no items update")
+                        }
+                    })
+                    .catch(err => console.log(err))
+            })
+            .catch(err => res.send(err))
     }
 }
 
