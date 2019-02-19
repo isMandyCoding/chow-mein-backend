@@ -192,6 +192,16 @@ module.exports = {
                     .catch(err => console.log(err))
             })
             .catch(err => res.send(err))
+    },
+    destroy: (req, res) => {
+        knex("orders")
+            .where("orders.id", req.params.id)
+            .del()
+            .returning('id')
+            .then(result => {
+                res.send(result)
+            })
+            .catch(err => res.json(err))
     }
 }
 

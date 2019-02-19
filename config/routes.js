@@ -14,6 +14,7 @@ module.exports = function (app) {
     app.get('/orders/:id', orders.show)
     app.post('/orders', orders.create)
     app.patch('/orders/:id', orders.update)
+    app.delete('/orders/:id', orders.destroy)
 
 
 
