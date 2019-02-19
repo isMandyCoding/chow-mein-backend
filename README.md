@@ -2,6 +2,7 @@
 
 ## GET request to http://127.0.0.1:8000/menu
 * Example server response body: 
+```javascript
 {
     "sections": [
         {
@@ -134,3 +135,4 @@
         }
        ]
       }
+      ```
