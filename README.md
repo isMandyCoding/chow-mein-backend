@@ -135,4 +135,199 @@
         }
        ]
       }
-      ```
+  ```
+      
+      
+## GET request to http://127.0.0.1:8000/menu/:menu_id
+* Example server response body: 
+```javascript
+[
+    {
+        "menu_id": 1,
+        "eng_name": "Hong Kong Style Coffee",
+        "ch_name": "港式咖啡",
+        "description": "Sweetened & served hot or cold",
+        "priceInCents": 325,
+        "img_url": "https://images.pexels.com/photos/1268558/pexels-photo-1268558.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "isSpicy": false,
+        "section_id": 1,
+        "eng_section": "HONG KONG STYLE MENU",
+        "ch_section": "HONG KONG STYLE MENU",
+        "category_id": 1,
+        "eng_category": "DRINKS",
+        "ch_category": "飲料"
+    }
+]
+```
+
+## POST request to http://127.0.0.1:8000/menu
+Exammple request body: 
+```javascript
+{
+	"eng_name": "Hong Kong Beef",
+	"ch_name": "香港牛肉",
+	"description": "Delicious Hong Kong Beef",
+	"img_url": "https://image.shutterstock.com/z/stock-photo-chow-mein-fried-noodles-with-chicken-and-vegetables-close-up-horizontal-view-from-above-271938194.jpg",
+	"is_spicy": "false",
+	"priceInCents": 1000,
+	"category_id": 6
+}
+```
+img_url and is_spicy are optional, however, is_spicy will default to false if not specified
+
+* Example server response body (the server returns the newly created menu item) : 
+```javascript
+[
+    {
+        "id": 353,
+        "eng_name": "Hong Kong Beef",
+        "ch_name": "香港牛肉",
+        "description": "Delicious Hong Kong Beef",
+        "priceInCents": 1000,
+        "img_url": "https://image.shutterstock.com/z/stock-photo-chow-mein-fried-noodles-with-chicken-and-vegetables-close-up-horizontal-view-from-above-271938194.jpg",
+        "is_spicy": false,
+        "category_id": 6,
+        "created_at": "2019-02-18T22:18:45.009Z",
+        "updated_at": "2019-02-18T22:18:45.009Z"
+    }
+]
+```
+## PATCH request to http://127.0.0.1:8000/menu/:menu_id
+All the same information can be passed in the request body as in a POST request
+Example request body: 
+```javascript
+{	"eng_name": "American BBQ Beef" }
+```
+Example server response body (the server returns the updated menu item) :
+```javascript
+[
+    {
+        "id": 353,
+        "eng_name": "American BBQ Beef",
+        "ch_name": "香港牛肉",
+        "description": "Delicious Hong Kong Beef",
+        "priceInCents": 1000,
+        "img_url": "https://image.shutterstock.com/z/stock-photo-chow-mein-fried-noodles-with-chicken-and-vegetables-close-up-horizontal-view-from-above-271938194.jpg",
+        "is_spicy": false,
+        "category_id": 6,
+        "created_at": "2019-02-18T22:18:45.009Z",
+        "updated_at": "2019-02-18T22:18:45.009Z"
+    }
+]
+```
+
+## DELETE request to http://127.0.0.1:8000/menu/:menu-id
+Deletes the specified menu item
+Example server response body (the server returns the deleted menu item):
+```javascript
+[
+    {
+        "id": 2,
+        "eng_name": "Hong Kong Style Coffee with Milk Tea",
+        "ch_name": "港式鴛鴦",
+        "description": "Sweetened & served hot or cold)",
+        "priceInCents": 325,
+        "img_url": "https://images.pexels.com/photos/1268558/pexels-photo-1268558.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "is_spicy": false,
+        "category_id": 1,
+        "created_at": "2019-02-18T21:25:30.743Z",
+        "updated_at": "2019-02-18T21:25:30.743Z"
+    }
+]
+```
+
+## GET request to http://127.0.0.1:8000/orders
+Gets all orders
+Example server response body:
+```javascript
+{
+    "1": {
+        "order_id": 1,
+        "customer_name": "Mandy",
+        "for_time": "ASAP",
+        "fromGuest": false,
+        "customer_id": 1,
+        "customer_email": "email1@email.com",
+        "status": "received",
+        "items": [
+            {
+                "item_id": 1,
+                "eng_name": "Hong Kong Style Coffee",
+                "ch_name": "港式咖啡",
+                "priceInCents": 325
+            },
+            {
+                "item_id": 17,
+                "eng_name": "Satay Beef",
+                "ch_name": "沙爹牛肉(辣)",
+                "priceInCents": 850
+            },
+            {
+                "item_id": 33,
+                "eng_name": "Cantonese Style Deep Fried Whole Tilapia",
+                "ch_name": "廣東紅燒全魚",
+                "priceInCents": 950
+            },
+            {
+                "item_id": 34,
+                "eng_name": "Deep Fried Whole Tilapia with Black Bean Sauce",
+                "ch_name": "豉椒全魚",
+                "priceInCents": 950
+            },
+            {
+                "item_id": 35,
+                "eng_name": "Deep Fried Whole Tilapia with Sour Vegetables",
+                "ch_name": "酸菜全魚",
+                "priceInCents": 950
+            },
+            {
+                "item_id": 36,
+                "eng_name": "Deep Fried Whole Tilapia & Eggplant",
+                "ch_name": "茄子全魚",
+                "priceInCents": 950
+            }
+        ]
+    },
+    "2": {
+        "order_id": 2,
+        "customer_name": "Nancy",
+        "for_time": "ASAP",
+        "fromGuest": false,
+        "customer_id": 2,
+        "customer_email": "email2@email.com",
+        "status": "cooking",
+        "items": [
+            {
+                "item_id": 2,
+                "eng_name": "Tea with Lemon",
+                "ch_name": "檸檬茶",
+                "priceInCents": 325
+            },
+            {
+                "item_id": 18,
+                "eng_name": "Ma Po Tofu & Minced Pork",
+                "ch_name": "麻婆豆腐飯(辣)",
+                "priceInCents": 650
+            },
+            {
+                "item_id": 37,
+                "eng_name": "Eggplant & Spare Ribs",
+                "ch_name": "茄子排骨飯",
+                "priceInCents": 650
+            },
+            {
+                "item_id": 38,
+                "eng_name": "Eggplant & Spare Ribs",
+                "ch_name": "茄子排骨飯",
+                "priceInCents": 650
+            },
+            {
+                "item_id": 39,
+                "eng_name": "Spare Ribs with Black Bean Sauce",
+                "ch_name": "豉椒排骨飯",
+                "priceInCents": 650
+            }
+        ]
+    }
+}
+```
