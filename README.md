@@ -1,5 +1,9 @@
 # chow-mein-backend
 
+An automatically generated version of this documentation can be found here: 
+https://documenter.getpostman.com/view/6596508/S11DSftg
+
+
 ## GET request to http://127.0.0.1:8000/menu
 * Example server response body: 
 ```javascript
@@ -57,28 +61,6 @@
             "isSpicy": false
         },
         {
-            "menu_id": 3,
-            "category_id": 1,
-            "section_id": 1,
-            "eng_name": "Hong Kong Style Milk Tea",
-            "ch_name": "港式奶茶",
-            "description": "Sweetened & served hot or cold",
-            "priceInCents": 325,
-            "img_url": "http://www.asiancafeexpress.com/_/rsrc/1468849187734/menu/drinks/hk_style_milk_tea.JPG?height=200&width=150",
-            "isSpicy": false
-        },
-        {
-            "menu_id": 4,
-            "category_id": 1,
-            "section_id": 1,
-            "eng_name": "Tea with Lemon",
-            "ch_name": "檸檬茶",
-            "description": "Sweetened & served hot or cold",
-            "priceInCents": 325,
-            "img_url": "http://www.asiancafeexpress.com/_/rsrc/1468849187716/menu/drinks/073111%20Homemade%20Ice%20Tea.jpg?height=200&width=160",
-            "isSpicy": false
-        },
-        {
             "menu_id": 5,
             "category_id": 1,
             "section_id": 1,
@@ -98,17 +80,6 @@
             "description": "Sweetened & served cold",
             "priceInCents": 325,
             "img_url": "http://www.asiancafeexpress.com/_/rsrc/1468849187868/menu/drinks/ice_red_bean.JPG?height=200&width=150",
-            "isSpicy": false
-        },
-        {
-            "menu_id": 7,
-            "category_id": 1,
-            "section_id": 1,
-            "eng_name": "Taro Coconut with Tapioca",
-            "ch_name": "西米露",
-            "description": "Sweetened & served cold",
-            "priceInCents": 325,
-            "img_url": "http://www.asiancafeexpress.com/_/rsrc/1468849188686/menu/drinks/073111%20Cold%20Taro%20Coconut%20Tapioca%20Drink.jpg?height=200&width=149",
             "isSpicy": false
         },
         {
@@ -410,7 +381,7 @@ Example server response body:
 order updated successfully
 ```
 
-DELETE request to http://127.0.0.1:8000/orders/:order_id
+## DELETE request to http://127.0.0.1:8000/orders/:order_id
 A request to this route will delete the specified order
 
 Example server response body (the server returns the id of the deleted order): 
