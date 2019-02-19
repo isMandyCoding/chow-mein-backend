@@ -36,14 +36,14 @@ module.exports = {
                             acc.categories.concat({
                                 category_id: currentItem.category_id,
                                 eng_category: currentItem.eng_category,
-                                ch_category: currentItem.ch_category
+                                ch_category: currentItem.ch_category,
+                                section_id: currentItem.section_id,
                             }) :
                             acc.categories,
                         menu_items: !acc.menu_items.find(item => item.menu_id === currentItem.menu_id) ?
                             acc.menu_items.concat({
                                 menu_id: currentItem.menu_id,
                                 category_id: currentItem.category_id,
-                                section_id: currentItem.section_id,
                                 eng_name: currentItem.eng_name,
                                 ch_name: currentItem.ch_name,
                                 description: currentItem.description,
