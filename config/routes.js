@@ -1,6 +1,7 @@
 
 const menu = require("../controllers/menu.js");
 const orders = require("../controllers/orders.js")
+const order_items = require("../controllers/order-items.js")
 
 module.exports = function (app) {
 
@@ -19,6 +20,7 @@ module.exports = function (app) {
     app.patch('/orders/:id', orders.update)
     app.delete('/orders/:id', orders.destroy)
 
-
+    //order_items routes
+    app.get('/order_items', order_items.index)
 
 }
