@@ -13,6 +13,7 @@ exports.up = function (knex, Promise) {
             .inTable('menu')
             .onDelete('CASCADE')
             .index();
+        table.integer("quantity")
         table.timestamps(true, true);
     })
 };

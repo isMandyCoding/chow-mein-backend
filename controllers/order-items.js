@@ -8,7 +8,8 @@ module.exports = {
                 'order_items.menu_id',
                 'menu.eng_name',
                 'menu.ch_name',
-                'menu.img_url'
+                'menu.img_url',
+                'menu.is_spicy as isSpicy'
             )
             .join('menu', 'order_items.menu_id', 'menu.id')
             .then(results => {

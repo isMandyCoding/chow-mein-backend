@@ -13,6 +13,7 @@ module.exports = {
                 "orders.customer_email",
                 "statuses.status",
                 "order_items.id as item_id",
+                "order_items.quantity",
                 "menu.eng_name",
                 "menu.ch_name",
                 "menu.priceInCents"
@@ -32,7 +33,8 @@ module.exports = {
                                     item_id: currentOrder.item_id,
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
-                                    priceInCents: currentOrder.priceInCents
+                                    priceInCents: currentOrder.priceInCents,
+                                    quantity: currentOrder.quantity
                                 })
                             } :
                             {
@@ -47,7 +49,8 @@ module.exports = {
                                     item_id: currentOrder.item_id,
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
-                                    priceInCents: currentOrder.priceInCents
+                                    priceInCents: currentOrder.priceInCents,
+                                    quantity: currentOrder.quantity
                                 }]
                             }
 
@@ -73,6 +76,7 @@ module.exports = {
                 "orders.customer_email",
                 "statuses.status",
                 "order_items.id as item_id",
+                "order_items.quantity",
                 "menu.id as menu_id",
                 "menu.eng_name",
                 "menu.ch_name",
@@ -93,7 +97,8 @@ module.exports = {
                                     item_id: currentOrder.item_id,
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
-                                    priceInCents: currentOrder.priceInCents
+                                    priceInCents: currentOrder.priceInCents,
+                                    quantity: currentOrder.quantity
                                 })
                             } :
                             {
@@ -109,7 +114,8 @@ module.exports = {
                                     item_id: currentOrder.item_id,
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
-                                    priceInCents: currentOrder.priceInCents
+                                    priceInCents: currentOrder.priceInCents,
+                                    quantity: currentOrder.quantity
                                 }]
                             }
                     }
@@ -135,8 +141,9 @@ module.exports = {
                 console.log(result)
                 let orderItems = req.body.items.map(item => {
                     return {
-                        menu_id: item,
-                        order_id: result[0]
+                        menu_id: item.menu_id,
+                        order_id: result[0],
+                        quantity: item.quantity
                     }
                 })
                 knex("order_items")
@@ -162,17 +169,17 @@ module.exports = {
             .then(result => {
                 let orderID = result[0]
                 knex("order_items")
-                    .where("order_items.order_id", result[0])
+                    .where("order_items.order_id", orderID)
                     .then(result => {
-                        if (!(result.filter((item, index) => item.menu_id === req.body.items[index]).length === req.body.items.length)) {
+                        if (!(result.filter((item, index) => item.menu_id === req.body.items[index].menu_id).length === req.body.items.length)) {
                             knex("order_items")
                                 .where("order_items.order_id", orderID)
                                 .del()
                                 .then(() => {
                                     let orderItems = req.body.items.map(item => {
                                         return {
-                                            menu_id: item,
-                                            order_id: orderID
+                                            ...item,
+                                            order_id: orderID,
                                         }
                                     })
                                     knex("order_items")

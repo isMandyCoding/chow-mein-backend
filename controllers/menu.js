@@ -62,7 +62,7 @@ module.exports = {
                     })
                 res.send(structuredMenu)
             })
-            .catch(err => console.log(err))
+            .catch(err => res.json(err))
     },
     show: (req, res) => {
         knex("menu")
