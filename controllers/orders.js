@@ -138,7 +138,8 @@ module.exports = {
             })
             .returning("id")
             .then(result => {
-                console.log(result)
+                let orderId = result[0]
+                console.log(orderId)
                 let orderItems = req.body.items.map(item => {
                     return {
                         menu_id: item.menu_id,
@@ -149,7 +150,10 @@ module.exports = {
                 knex("order_items")
                     .insert(orderItems)
                     .then(result => {
-                        res.send("order placed successfully")
+                        res.send({
+                            orderId: orderId,
+                            message: "Your order was placed successfully!"
+                        })
                     })
                     .catch(err => res.send(err))
             })
