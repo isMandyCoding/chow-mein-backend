@@ -7,6 +7,7 @@ module.exports = {
                 "orders.id as order_id",
                 "orders.customer_name",
                 "orders.for_time",
+                "orders.created_at",
                 "orders.from_guest as fromGuest",
                 "orders.customer_id",
                 "orders.status_id",
@@ -45,6 +46,7 @@ module.exports = {
                                 customer_id: currentOrder.customer_id,
                                 customer_email: currentOrder.customer_email,
                                 status: currentOrder.status,
+                                created_at: currentOrder.created_at,
                                 items: [{
                                     item_id: currentOrder.item_id,
                                     eng_name: currentOrder.eng_name,
@@ -68,6 +70,7 @@ module.exports = {
             .where('orders.id', req.params.id)
             .select(
                 "orders.id as order_id",
+                "orders.created_at",
                 "orders.customer_name",
                 "orders.for_time",
                 "orders.from_guest as fromGuest",
@@ -109,6 +112,7 @@ module.exports = {
                                 customer_id: currentOrder.customer_id,
                                 customer_email: currentOrder.customer_email,
                                 status: currentOrder.status,
+                                created_at: currentOrder.created_at,
                                 items: [{
                                     menu_id: currentOrder.menu_id,
                                     item_id: currentOrder.item_id,
