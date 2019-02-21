@@ -17,7 +17,8 @@ module.exports = {
                 "order_items.quantity",
                 "menu.eng_name",
                 "menu.ch_name",
-                "menu.priceInCents"
+                "menu.priceInCents",
+                "menu.img_url"
             )
             .join("statuses", "statuses.id", "orders.status_id")
             .join("order_items", "order_items.order_id", "orders.id")
@@ -35,7 +36,8 @@ module.exports = {
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
                                     priceInCents: currentOrder.priceInCents,
-                                    quantity: currentOrder.quantity
+                                    quantity: currentOrder.quantity,
+                                    img_url: currentOrder.img_url
                                 })
                             } :
                             {
@@ -52,7 +54,8 @@ module.exports = {
                                     eng_name: currentOrder.eng_name,
                                     ch_name: currentOrder.ch_name,
                                     priceInCents: currentOrder.priceInCents,
-                                    quantity: currentOrder.quantity
+                                    quantity: currentOrder.quantity,
+                                    img_url: currentOrder.img_url
                                 }]
                             }
 
