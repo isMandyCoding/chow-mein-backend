@@ -19,6 +19,7 @@ module.exports = function (app) {
     app.post('/orders', orders.create)
     app.patch('/orders/:id', orders.update)
     app.delete('/orders/:id', orders.destroy)
+    app.patch('/orders/status/:id', orders.updateStatus) //updates status and returns updated status
 
     //order_items routes
     app.get('/order_items', order_items.index)

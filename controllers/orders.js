@@ -211,6 +211,28 @@ module.exports = {
             })
             .catch(err => res.send(err))
     },
+    updateStatus: (req, res) => {
+        knex("orders")
+            .where("orders.id", req.params.id)
+            .update({
+                status_id: req.body.status_id
+            })
+            .returning('id')
+            .then(orderId => {
+                knex("orders")
+                    .where("orders.id", orderId[0])
+                    .join("statuses", "statuses.id", "orders.status_id")
+                    .select(
+                        "orders.id as orderId",
+                        "statuses.status"
+                    )
+                    .then(result => {
+                        res.send(result[0])
+                    })
+                    .catch(error => res.json(error))
+            })
+            .catch(error => res.json(error))
+    },
     destroy: (req, res) => {
         knex("orders")
             .where("orders.id", req.params.id)
