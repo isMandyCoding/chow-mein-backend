@@ -5,6 +5,7 @@ exports.up = function (knex, Promise) {
         table.string('for_time')
         table.boolean('from_guest')
             .defaultsTo('false')
+        table.string("customerPhoneNumber")
         table.integer('customer_id')
             .references('id')
             .inTable('customers')
