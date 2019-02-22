@@ -9,18 +9,42 @@ const cors = require('cors')
 const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const axios = require('axios')
 
 io.on('connection', function (socket) {
-    console.log("client connected")
     socket.on('changeOrderStatus', function (data) {
         io.emit('updateOrderStatus', data)
     })
+    socket.on('submitOrder', function (newOrder) {
+        axios.post('http://127.0.0.1:8000/orders', {
+            customer_name: newOrder.customerName,
+            customer_email: newOrder.customerEmail,
+            customerPhoneNumber: newOrder.customerPhone,
+            items: newOrder.items.map(item => {
+                return {
+                    menu_id: item.menu_id,
+                    quantity: item.quantity
+                }
+            })
+        })
+            .then(response => {
+                let returnedOrder = {
+                    ...newOrder,
+                    order_id: response.data.orderId
+                }
+                io.emit('sendOrderToRestaurant', returnedOrder)
+                io.emit('updateOrderStatus', {
+                    ...returnedOrder,
+                    statusCode: 1
+                })
+                io.emit('giveCustomerOrderId', {
+                    orderId: returnedOrder.order_id,
+                    newOrderStatus: "received"
+                })
+            })
+
+    })
 });
-// io.on('test-event', function (data) {
-//     console.log(data);
-// })
-
-
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));

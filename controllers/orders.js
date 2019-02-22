@@ -64,6 +64,7 @@ module.exports = {
 
                     return acc
                 }, {})
+                console.log("a get req for the orders was made: ", JSON.stringify(structuredOrders, null, 2))
                 res.send(structuredOrders)
             })
             .catch(err => res.send(err))
