@@ -9,7 +9,7 @@ wanted to add that the current site doesn't have is online ordering functoinalit
 
 #### Backend Technology used:
 
-For the backend side of this project, I used socket.io to open up a web socket on the server side in my Express server. I also wanted to have the menu be in a database for easy editing and updating by the admin. 
+For the backend side of this project, I used socket.io to allow live updating for order statuses for customers and live new order updates for the admin side. I also wanted to have the menu be in a database for easy editing and updating by the admin. 
 
  - Socket.io
  - Axios
