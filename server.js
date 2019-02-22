@@ -12,13 +12,15 @@ const io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
     console.log("client connected")
-    socket.on('test-event', function (data) {
-        console.log(data);
-    });
+    socket.on('changeOrderStatus', function (data) {
+        io.emit('updateOrderStatus', data)
+    })
 });
-io.on('test-event', function (data) {
-    console.log(data);
-})
+// io.on('test-event', function (data) {
+//     console.log(data);
+// })
+
+
 
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -227,7 +227,8 @@ module.exports = {
                         "statuses.status"
                     )
                     .then(result => {
-                        res.send(result[0])
+                        io.
+                            res.send(result[0])
                     })
                     .catch(error => res.json(error))
             })
