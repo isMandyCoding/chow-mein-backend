@@ -1,5 +1,7 @@
 # chow-mein-backend
 
+The frontend REPO can be found [here](https://github.com/theycallmethetailor/chow-mein-backend)
+
 An automatically generated version of this documentation can be found here: 
 https://documenter.getpostman.com/view/6596508/S11DSftg
 
