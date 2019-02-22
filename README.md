@@ -2,6 +2,23 @@
 
 The frontend REPO can be found [here](https://github.com/theycallmethetailor/chow-mein-frontend)
 
+### Welcome to my q3 project.
+
+For my project, I wanted to recreate a website for a local chinese restaurant I love and modernize things. The main thing I 
+wanted to add that the current site doesn't have is online ordering functoinality. 
+
+#### Backend Technology used:
+
+For the backend side of this project, I used socket.io to open up a web socket on the server side in my Express server. I also wanted to have the menu be in a database for easy editing and updating by the admin. 
+
+ - Socket.io
+ - Axios
+ - PostgreSQL
+ - Express
+ - Knex
+ - Node.js
+
+
 An automatically generated version of this documentation can be found here: 
 https://documenter.getpostman.com/view/6596508/S11DSftg
 
